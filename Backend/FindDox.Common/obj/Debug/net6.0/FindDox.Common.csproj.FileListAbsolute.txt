@@ -1,0 +1,12 @@
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\bin\Debug\net6.0\FindDox.Common.deps.json
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\bin\Debug\net6.0\FindDox.Common.dll
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\bin\Debug\net6.0\FindDox.Common.pdb
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\obj\Debug\net6.0\FindDox.Common.csproj.AssemblyReference.cache
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\obj\Debug\net6.0\FindDox.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\obj\Debug\net6.0\FindDox.Common.AssemblyInfoInputs.cache
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\obj\Debug\net6.0\FindDox.Common.AssemblyInfo.cs
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\obj\Debug\net6.0\FindDox.Common.csproj.CoreCompileInputs.cache
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\obj\Debug\net6.0\FindDox.Common.dll
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\obj\Debug\net6.0\refint\FindDox.Common.dll
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\obj\Debug\net6.0\FindDox.Common.pdb
+C:\Users\maksi\Desktop\Штучки\Мага\Сдача_2\Hack\FindDocs\Backend\FindDox.Common\obj\Debug\net6.0\ref\FindDox.Common.dll
