@@ -66,7 +66,7 @@ public class DocumentService : IDocumentService
 	{
 		var doc = await _documentRepository.Get(document.Id);
 
-		await _documentTypeService.Update(document.DocumentType);
+		doc.DocumentType = document.DocumentType.ToDbo();
 
 		if (document.Keywords is not null && document.Keywords.Any())
 			doc.Keywords = document.Keywords.Select(x => x.ToDbo(doc.Id)).ToList();
