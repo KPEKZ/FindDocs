@@ -8,6 +8,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '../core/core.module';
 import { HeaderModule } from '../header/header.module';
+import { NgMaterialDependenciesModule } from '../ng-material-dependencies/ng-material-dependencies.module';
+import { AppStoreModule } from './store/app-store.module';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,11 @@ import { HeaderModule } from '../header/header.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
     BrowserAnimationsModule,
+    AppStoreModule,
     CoreModule,
     HeaderModule,
+    NgMaterialDependenciesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

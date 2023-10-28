@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 import { DocumentsAdapterService } from "../services/documents-adapter.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { documentsActions } from "./document.actions";
-import { catchError, map, mergeMap, switchMap } from "rxjs";
+import { catchError, map, mergeMap, switchMap, tap } from "rxjs";
 import { DocumentCreateDto } from "../models/document-create-dto";
 import { DocumentId } from "../models/document";
 

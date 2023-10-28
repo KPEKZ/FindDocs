@@ -1,0 +1,12 @@
+:host {
+    .table {
+        .mat-mdc-row {
+            &:hover {
+                background-color: #F3F3F3;
+                cursor: pointer;
+            }
+        }
+    }
+
+
+}

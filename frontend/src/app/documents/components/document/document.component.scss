@@ -1,0 +1,76 @@
+:host {
+    .document {
+        display: flex;
+        flex-flow: column;
+        gap: 40px;
+
+        &__title-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            h1 {
+                margin: 0;
+            }
+
+            span {
+                white-space: nowrap;
+            }
+
+            mat-chip {
+               ::ng-deep span {
+                    color: white;
+                }
+
+                background-color: #3F51B5;
+            }
+        }
+
+        &__content {
+            display: flex;
+            flex-flow: column;
+            gap: 40px;
+
+            .document__content-wrapper {
+                display: flex;
+                gap: 25px;
+
+                .document__info-card {
+                    flex: 1 1 auto;
+                }
+            }
+        }
+
+        &__info-card {
+            border-radius: 20px;
+            padding: 16px;
+
+            .info-card__chip {
+                ::ng-deep span {
+                    color: #6D6D6D;
+                }
+
+                background-color: #F3F3F3;
+            }
+
+            mat-card-content {
+                padding: 10px 0 0;
+                display: flex;
+                gap: 15px;
+            }
+        }
+
+        &__links {
+            display: flex;
+            gap: 15px;
+
+            mat-chip {
+                ::ng-deep span {
+                     color: white;
+                 }
+
+                 background-color: #3F51B5;
+             }
+        }
+    }
+}

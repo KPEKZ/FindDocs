@@ -1,1 +1,51 @@
-<p>document-left-menu works!</p>
+<form class="form" [formGroup]="documentsForm">
+    <div class="form-container">
+        <mat-form-field class="form-field">
+            <mat-label>
+                Тип документа
+            </mat-label>
+            <mat-select #TypeSelector multiple formControlName="types">
+                <mat-option
+                    *ngFor="let type of documentTypes$ | async"
+                    [value]="type.id"
+                >
+                    {{type.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <mat-label>
+                Ключевые слова
+            </mat-label>
+            <mat-select #KeyWordSelector multiple formControlName="keywords">
+                <mat-option
+                    *ngFor="let keyword of documentKeywords$ | async"
+                    [value]="keyword.id"
+                >
+                    {{keyword.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <mat-label>Выберите диапазон дат</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input formControlName="dateStartFrom" matStartDate placeholder="Начало">
+              <input formControlName="dateEndTo" matEndDate placeholder="Конец">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
+
+        <button
+            type="button"
+            color="primary"
+            mat-raised-button
+        >
+            Применить
+        </button>
+    </div>
+</form>
