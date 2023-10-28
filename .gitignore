@@ -3,3 +3,13 @@
 ################################################################################
 
 /Backend/FindDox.Services/bin/Debug/net6.0
+/Backend/FindDox.Models/bin/Debug/net6.0
+/Backend/FindDox.DataAccess.EF/obj
+/Backend/FindDoxBackend/bin/Debug/net6.0
+/Backend/FindDox.Abstractions/bin/Debug/net6.0
+/Backend/.vs
+/Backend/FindDox.Abstractions/obj
+/Backend/FindDox.DataAccess.EF/bin/Debug/net6.0
+/Backend/FindDox.Models/obj
+/Backend/FindDox.Services/obj
+/Backend/FindDoxBackend/obj
