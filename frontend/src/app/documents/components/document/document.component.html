@@ -1,1 +1,45 @@
-<p>document works!</p>
+<section class="document" *ngIf="document$ | async as doc">
+    <div class="document__title-info">
+        <h1>{{doc.name}}</h1>
+
+        <span>{{doc.number}}</span>
+
+        <mat-chip color="primary">{{doc.documentType.name}}</mat-chip>
+    </div>
+
+    <div class="document__content">
+        <mat-card class="document__info-card">
+            <mat-card-title>Ключевые слова</mat-card-title>
+            <mat-card-content>
+                <mat-chip class="info-card__chip" *ngFor="let key of doc.keywords">{{key.name}}</mat-chip>
+            </mat-card-content>
+        </mat-card>
+
+        <div class="document__content-wrapper">
+
+            <mat-card class="document__info-card">
+                <mat-card-title>Дата выхода</mat-card-title>
+                <mat-card-content>
+                    <mat-chip class="info-card__chip">{{doc.releaseDate}}</mat-chip>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="document__info-card">
+                <mat-card-title>Дата принятия</mat-card-title>
+                <mat-card-content>
+                    <mat-chip class="info-card__chip">{{doc.takeEffectDate}}</mat-chip>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+
+    </div>
+
+    <div class="document__links">
+
+        <mat-chip *ngFor="let link of doc.links">
+            {{link?.url}}
+        </mat-chip>
+
+    </div>
+</section>

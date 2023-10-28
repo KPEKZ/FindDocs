@@ -6,7 +6,7 @@ import { DocumentCreateDto } from '../models/document-create-dto';
 @Injectable()
 export abstract class DocumentsAdapterService {
 
-  protected readonly url = 'api/documents/';
+  protected url = 'api/documents/';
 
   abstract getDocuments(): Observable<IDocument []>;
 

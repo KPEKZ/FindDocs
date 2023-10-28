@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
+    path: 'docs',
     loadChildren: () => import('../documents/documents.module').then(m => m.DocumentsModule)
   }
 ];

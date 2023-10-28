@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
+import { NgMaterialDependenciesModule } from '../ng-material-dependencies/ng-material-dependencies.module';
 
 
 
@@ -9,7 +10,11 @@ import { HeaderComponent } from './components/header/header.component';
     HeaderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgMaterialDependenciesModule,
+  ],
+  exports: [
+    HeaderComponent,
   ]
 })
 export class HeaderModule { }
