@@ -49,11 +49,24 @@ public class DocumentService : IDocumentService
 
 	public async Task<Models.Api.Document> Add(Models.Api.Document document)
 	{
-		var docType = await _documentTypeRepository.Get(document.DocumentType.Id);
-		var doc = document.ToDbo(docType);
+		var docType = await _documentTypeService.Get(document.DocumentType.Id);
 
-		doc.Keywords = document.Keywords?.Select(x => x.ToDbo(doc.Id)).ToList();
-		doc.Links = document.Links?.Select(x => x.ToDbo(doc.Id)).ToList();
+		var doc = document.ToDbo();
+		doc.DocumentType = docType.ToDbo();
+
+		if (document.Links is not null && document.Links.Any())
+		{
+			var docLinksT = document.Links.Select(x => _linkService.Get(x.Id));
+			var docLinks = await Task.WhenAll(docLinksT);
+			doc.Links = docLinks.Select(x => x.ToDbo(doc.Id)).ToList();
+		}
+
+		if (document.Keywords is not null && document.Keywords.Any())
+		{
+			var docKeywordsT = document.Keywords.Select(x => _keywordService.Get(x.Id));
+			var docKeywords = await Task.WhenAll(docKeywordsT);
+			doc.Keywords = docKeywords.Select(x => x.ToDbo(doc.Id)).ToList();
+		}
 
 		var addedDoc = await _documentRepository.Add(doc);
 		await _documentRepository.Save();

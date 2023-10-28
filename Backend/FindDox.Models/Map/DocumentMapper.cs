@@ -2,14 +2,13 @@
 
 public static class DocumentMapper
 {
-	public static Db.Document ToDbo(this Api.Document document, Db.DocumentType docType) =>
+	public static Db.Document ToDbo(this Api.Document document) =>
 	new()
 	{
 		Name = document.Name,
 		Number = document.Number,
 		ReleaseDate = document.ReleaseDate,
-		TakeEffectDate = document.TakeEffectDate,
-		DocumentType = docType
+		TakeEffectDate = document.TakeEffectDate
 	};
 
 	public static Api.Document ToApi(this Db.Document document) =>
