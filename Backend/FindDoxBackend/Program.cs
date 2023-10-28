@@ -24,6 +24,14 @@ builder.Services.AddScoped<IFindBoxDbContext, FindDoxDbContext>();
 builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
+
+var config = new ConfigurationBuilder()
+                 .SetBasePath(Directory.GetCurrentDirectory())
+                 .AddJsonFile("appsettings.json")
+                 .Build();
+
+builder.Services.AddDbContext<FindDoxDbContext>(options =>
+            options.UseSqlServer(config.GetSection("ConnectionString").Value));
 builder.Services.AddDbContext<FindDoxDbContext>(options =>
             options.UseSqlServer("DefaultConnection"));
 

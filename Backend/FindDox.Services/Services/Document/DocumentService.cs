@@ -26,6 +26,7 @@ public class DocumentService : IDocumentService
 		doc.Links = document.Links.Select(x => x.ToDbo(doc.Id)).ToList();
 
 		var addedDoc = await _documentRepository.Add(doc);
+		await _documentRepository.Save();
 		return addedDoc.ToApi();
 	}
 
