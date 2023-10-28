@@ -1,4 +1,5 @@
-﻿using FindDox.Models.Db;
+﻿using FindDox.Models.Api.Request;
+using FindDox.Models.Db;
 
 namespace FindDox.Abstractions.Services.DataAccess;
 
@@ -11,6 +12,12 @@ public interface IDocumentRepository
 	Task Update(Document document);
 
 	Task Remove(Guid id);
+
+
+	Task<IReadOnlyList<Document>> FindByDocumentTypes(IReadOnlyList<Guid> documentTypeIds);
+	Task<IReadOnlyList<Document>> FindByName(string name);
+	Task<IReadOnlyList<Document>> FindByNumber(string number);
+	Task<IReadOnlyList<Document>> FindByKeywords(IReadOnlyList<string> keywords);
 
 	Task<int> Save(CancellationToken ctx = default);
 }
