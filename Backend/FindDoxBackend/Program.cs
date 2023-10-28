@@ -55,7 +55,13 @@ app.MapControllerRoute(
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(MyAllowSpecificOrigins =>
+    MyAllowSpecificOrigins
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials()
+);
 app.UseRouting();
 
 app.MapRazorPages();

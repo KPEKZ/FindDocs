@@ -41,7 +41,7 @@ public class UserController : ControllerBase
 	}
 
 	[HttpGet]
-	[ProducesResponseType(typeof(Role), StatusCodes.Status200OK)]
+	[ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
 	public async Task<IActionResult> Get([FromQuery] Guid id)
 	{
 		var result = await _userService.Get(id);
@@ -49,7 +49,7 @@ public class UserController : ControllerBase
 	}
 
 	[HttpGet("all")]
-	[ProducesResponseType(typeof(Role), StatusCodes.Status200OK)]
+	[ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
 	public async Task<IActionResult> GetAll()
 	{
 		var result = await _userService.GetAll();
@@ -64,8 +64,16 @@ public class UserController : ControllerBase
 		return Ok(result);
 	}
 
+	[HttpPost]
+	[ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+	public async Task<IActionResult> Add([FromQuery] Guid userId, Guid roleId)
+	{
+		await _userService.AddRole(userId, roleId);
+		return Ok();
+	}
+
 	[HttpPut]
-	[ProducesResponseType(typeof(Role), StatusCodes.Status200OK)]
+	[ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
 	public async Task<IActionResult> Update([FromBody] User user)
 	{
 		var result = await _userService.Update(user);
