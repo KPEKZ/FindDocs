@@ -52,8 +52,8 @@ public class DocumentService : IDocumentService
 		var docType = await _documentTypeRepository.Get(document.DocumentType.Id);
 		var doc = document.ToDbo(docType);
 
-		doc.Keywords = document.Keywords.Select(x => x.ToDbo(doc.Id)).ToList();
-		doc.Links = document.Links.Select(x => x.ToDbo(doc.Id)).ToList();
+		doc.Keywords = document.Keywords?.Select(x => x.ToDbo(doc.Id)).ToList();
+		doc.Links = document.Links?.Select(x => x.ToDbo(doc.Id)).ToList();
 
 		var addedDoc = await _documentRepository.Add(doc);
 		await _documentRepository.Save();

@@ -8,6 +8,7 @@ public interface IUserService
 	Task<IReadOnlyList<User>> GetAll();
 
 	Task<User> Add(User user);
+	Task AddRole(Guid roleId, Guid userId);
 
 	Task<User> Update(User user);
 
