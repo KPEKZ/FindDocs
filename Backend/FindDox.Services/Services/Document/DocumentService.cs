@@ -1,5 +1,6 @@
 ﻿using FindDox.Abstractions.Services.DataAccess;
 using FindDox.Abstractions.Services.Domain;
+using FindDox.Models.Api.Request;
 using FindDox.Models.Map;
 
 namespace FindDox.Services.Services.Document;
@@ -7,10 +8,13 @@ namespace FindDox.Services.Services.Document;
 public class DocumentService : IDocumentService
 {
 	protected readonly IDocumentRepository _documentRepository;
+	protected readonly IDocumentTypeRepository _documentTypeRepository;
 
-	public DocumentService(IDocumentRepository documentRepository)
+	public DocumentService(IDocumentRepository documentRepository,
+		IDocumentTypeRepository documentTypeRepository)
 	{
 		_documentRepository = documentRepository;
+		_documentTypeRepository = documentTypeRepository;
 	}
 
 	public async Task<Models.Api.Document> Get(Guid id)
@@ -27,7 +31,9 @@ public class DocumentService : IDocumentService
 
 	public async Task<Models.Api.Document> Add(Models.Api.Document document)
 	{
-		var doc = document.ToDbo();
+		var docType = await _documentTypeRepository.Get(document.DocumentType.Id);
+		var doc = document.ToDbo(docType);
+
 		doc.Keywords = document.Keywords.Select(x => x.ToDbo(doc.Id)).ToList();
 		doc.Links = document.Links.Select(x => x.ToDbo(doc.Id)).ToList();
 
@@ -52,5 +58,10 @@ public class DocumentService : IDocumentService
 	{
 		await _documentRepository.Remove(id);
 		await _documentRepository.Save();
+	}
+
+	public Task<IReadOnlyList<Models.Api.Document>> Find(FindDocumentsRequest request)
+	{
+		throw new NotImplementedException();
 	}
 }
