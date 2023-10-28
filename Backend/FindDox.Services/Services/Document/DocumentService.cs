@@ -19,9 +19,10 @@ public class DocumentService : IDocumentService
 		return doc.ToApi();
 	}
 
-	public Task<IReadOnlyList<Models.Api.Document>> GetAll()
+	public async Task<IReadOnlyList<Models.Api.Document>> GetAll()
 	{
-		throw new NotImplementedException();
+		var documents = await _documentRepository.GetAll();
+		return documents.Select(x => x.ToApi()).ToList();
 	}
 
 	public async Task<Models.Api.Document> Add(Models.Api.Document document)

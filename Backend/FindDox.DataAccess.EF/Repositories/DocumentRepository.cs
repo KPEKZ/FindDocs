@@ -37,7 +37,11 @@ public class DocumentRepository : IDocumentRepository
 
 	public async Task<IReadOnlyList<Document>> GetAll()
 	{
-		return await _dbContext.Documents.ToListAsync();
+		return await _dbContext.Documents
+			.Include(x => x.Links)
+			.Include(x => x.Keywords)
+			.Include(x => x.DocumentType)
+			.ToListAsync();
 	}
 
 	public async Task<Document> Add(Document document)
