@@ -12,4 +12,7 @@ public class FindDoxDbContext : DbContext, IFindBoxDbContext
 	public DbSet<DocumentType> DocumentTypes { get; set; }
 	public DbSet<Keyword> Keywords { get; set; }
 	public DbSet<Link> Links { get; set; }
+	public DbSet<User> Users { get; set; }
+	public DbSet<Role> Roles { get; set; }
+	public DbSet<UserRole> UsersToRoles { get; set; }
 }

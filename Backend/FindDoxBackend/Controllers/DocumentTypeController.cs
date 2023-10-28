@@ -40,7 +40,7 @@ public class DocumentTypeController : ControllerBase
 	}
 
 	[HttpPut]
-	[ProducesResponseType(typeof(Document), StatusCodes.Status200OK)]
+	[ProducesResponseType(typeof(DocumentType), StatusCodes.Status200OK)]
 	public async Task<IActionResult> Update([FromBody] DocumentType documentType)
 	{
 		var result = await _documentTypeService.Update(documentType);
