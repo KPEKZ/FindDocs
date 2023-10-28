@@ -8,7 +8,7 @@ namespace FindDox.Abstractions.Services.DataAccess;
 public interface IDocumentRepository
 {
 	Task<Document> Get(Guid id);
-	Task<IReadOnlyList<Document>> GetAll();
+	Task<IReadOnlyList<Document>> GetAllByFilters(GetAllRequest request);
 
 	Task<Document> Add(Document document);
 

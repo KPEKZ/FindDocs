@@ -41,9 +41,9 @@ public class DocumentService : IDocumentService
 		return doc.ToApi();
 	}
 
-	public async Task<IReadOnlyList<Models.Api.Document>> GetAll()
+	public async Task<IReadOnlyList<Models.Api.Document>> GetAllByFilters(GetAllRequest request)
 	{
-		var documents = await _documentRepository.GetAll();
+		var documents = await _documentRepository.GetAllByFilters(request);
 		return documents.Select(x => x.ToApi()).ToList();
 	}
 
@@ -80,11 +80,5 @@ public class DocumentService : IDocumentService
 	{
 		await _documentRepository.Remove(id);
 		await _documentRepository.Save();
-	}
-
-	public Task<IReadOnlyList<Models.Api.Document>> Find(FindDocumentsRequest request)
-	{
-		throw new NotImplementedException();
-
 	}
 }
