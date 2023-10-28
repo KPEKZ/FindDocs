@@ -35,6 +35,15 @@ public class DocumentRepository : IDocumentRepository
 			?? throw new Exception("Документ не найден");
 	}
 
+	public async Task<IReadOnlyList<Document>> GetAll()
+	{
+		return await _dbContext.Documents
+			.Include(x => x.Links)
+			.Include(x => x.Keywords)
+			.Include(x => x.DocumentType)
+			.ToListAsync();
+	}
+
 	public async Task<Document> Add(Document document)
 	{
 		await _dbContext.Documents.AddAsync(document);

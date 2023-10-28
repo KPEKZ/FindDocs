@@ -23,6 +23,12 @@ public class DocumentService : IDocumentService
 		return doc.ToApi();
 	}
 
+	public async Task<IReadOnlyList<Models.Api.Document>> GetAll()
+	{
+		var documents = await _documentRepository.GetAll();
+		return documents.Select(x => x.ToApi()).ToList();
+	}
+
 	public async Task<Models.Api.Document> Add(Models.Api.Document document)
 	{
 		var docType = await _documentTypeRepository.Get(document.DocumentType.Id);
@@ -43,6 +49,7 @@ public class DocumentService : IDocumentService
 		doc.ToUpdateDbo(document);
 
 		await _documentRepository.Update(doc);
+		await _documentRepository.Save();
 
 		return doc.ToApi();
 	}
@@ -50,6 +57,7 @@ public class DocumentService : IDocumentService
 	public async Task Remove(Guid id)
 	{
 		await _documentRepository.Remove(id);
+		await _documentRepository.Save();
 	}
 
 	public Task<IReadOnlyList<Models.Api.Document>> Find(FindDocumentsRequest request)

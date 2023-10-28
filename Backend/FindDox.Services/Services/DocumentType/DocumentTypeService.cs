@@ -19,6 +19,12 @@ public class DocumentTypeService : IDocumentTypeService
 		return docType.ToApi();
 	}
 
+	public async Task<IReadOnlyList<Models.Api.DocumentType>> GetAll()
+	{
+		var docTypes = await _documentTypeRepository.GetAll();
+		return docTypes.Select(x => x.ToApi()).ToList();
+	}
+
 	public async Task<Models.Api.DocumentType> Add(Models.Api.DocumentType documentType)
 	{
 		var doc = documentType.ToDbo();

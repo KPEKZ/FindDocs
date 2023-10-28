@@ -20,9 +20,9 @@ public static class DocumentMapper
 		Number = document.Number,
 		ReleaseDate = document.ReleaseDate,
 		TakeEffectDate = document.TakeEffectDate,
-		DocumentType = document.DocumentType.ToApi(),
-		Links = document.Links.Select(x => x.ToApi()).ToList(),
-		Keywords = document.Keywords.Select(x => x.ToApi()).ToList(),
+		DocumentType = document.DocumentType?.ToApi(),
+		Links = document.Links?.Select(x => x.ToApi()).ToList(),
+		Keywords = document.Keywords?.Select(x => x.ToApi()).ToList(),
 	};
 
 	public static void ToUpdateDbo(this Db.Document document, Api.Document updateDocument) 
