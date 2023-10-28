@@ -32,6 +32,8 @@ var config = new ConfigurationBuilder()
 
 builder.Services.AddDbContext<FindDoxDbContext>(options =>
             options.UseSqlServer(config.GetSection("ConnectionString").Value));
+builder.Services.AddDbContext<FindDoxDbContext>(options =>
+            options.UseSqlServer("DefaultConnection"));
 
 var app = builder.Build();
 

@@ -6,6 +6,10 @@ import { DocumentComponent } from './components/document/document.component';
 import { DocumentTableComponent } from './components/document-table/document-table.component';
 import { DocumentLeftMenuComponent } from './components/document-left-menu/document-left-menu.component';
 import { NgMaterialDependenciesModule } from '../ng-material-dependencies/ng-material-dependencies.module';
+import { DocumentsService } from './services/documents.service';
+import { DocumentsRepositoryService } from './services/documents-repository.service';
+import { DocumentsAdapterService } from './services/documents-adapter.service';
+import { DocumentsApiAdapterService } from './services/documents-api-adapter.service';
 
 
 
@@ -20,6 +24,14 @@ import { NgMaterialDependenciesModule } from '../ng-material-dependencies/ng-mat
     CommonModule,
     DocumentsRoutingModule,
     NgMaterialDependenciesModule,
+  ],
+  providers: [
+    DocumentsService,
+    DocumentsRepositoryService,
+    {
+      provide: DocumentsAdapterService,
+      useClass: DocumentsApiAdapterService,
+    }
   ]
 })
 export class DocumentsModule { }
