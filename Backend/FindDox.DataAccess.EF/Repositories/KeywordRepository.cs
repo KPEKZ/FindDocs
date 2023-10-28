@@ -34,6 +34,11 @@ public class KeywordRepository : IKeywordRepository
 				.ToListAsync();
 	}
 
+	public async Task<IReadOnlyList<Keyword>> GetMany(IReadOnlyList<Guid> ids)
+	{
+		return await _dbContext.Keywords.Where(x => ids.Contains(x.Id)).ToListAsync();
+	}
+
 	public async Task<Keyword> Add(Keyword keyword)
 	{
 		await _dbContext.Keywords.AddAsync(keyword);

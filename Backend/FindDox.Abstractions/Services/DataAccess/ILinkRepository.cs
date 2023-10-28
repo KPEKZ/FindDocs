@@ -5,6 +5,7 @@ namespace FindDox.Abstractions.Services.DataAccess;
 public interface ILinkRepository
 {
 	Task<Link> Get(Guid id);
+	Task<IReadOnlyList<Link>> GetMany(IReadOnlyList<Guid> ids);
 	Task<IReadOnlyList<Link>> GetManyByDocumentId(Guid documentId);
 
 	Task<Link> Add(Link link);

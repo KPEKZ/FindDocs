@@ -20,6 +20,12 @@ public class KeywordService : IKeywordService
 		return docType.ToApi();
 	}
 
+	public async Task<IReadOnlyList<Models.Api.Keyword>> GetMany(IReadOnlyList<Guid> ids)
+	{
+		var keywords = await _keywordRepository.GetMany(ids);
+		return keywords.Select(x => x.ToApi()).ToList();
+	}
+
 	public async Task<IReadOnlyList<Models.Api.Keyword>> GetAll()
 	{
 		var keywords = await _keywordRepository.GetAll();

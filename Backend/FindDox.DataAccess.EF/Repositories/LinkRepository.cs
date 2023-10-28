@@ -21,6 +21,11 @@ public class LinkRepository : ILinkRepository
 			?? throw new Exception("Ссылка не найдена");
 	}
 
+	public async Task<IReadOnlyList<Link>> GetMany(IReadOnlyList<Guid> ids)
+	{
+		return await _dbContext.Links.Where(x => ids.Contains(x.Id)).ToListAsync();
+	}
+
 	public async Task<IReadOnlyList<Link>> GetManyByDocumentId(Guid documentId)
 	{
 		return await _dbContext.Links

@@ -20,6 +20,13 @@ public class LinkService : ILinkService
 		return link.ToApi();
 	}
 
+
+	public async Task<IReadOnlyList<Models.Api.Link>> GetMany(IReadOnlyList<Guid> ids)
+	{
+		var links = await _linkRepository.GetMany(ids);
+		return links.Select(x => x.ToApi()).ToList();
+	}
+
 	public async Task<Models.Api.Link> Add(AddlinkRequest request)
 	{
 		var link = request.Link.ToDbo(request.DocumentId);
