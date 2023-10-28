@@ -24,6 +24,7 @@ public class DocumentService : IDocumentService
 		_linkService = linkService;
 		_keywordService = keywordService;
 		_documentTypeService = documentTypeService;
+	}
 
 
 	public DocumentService(IDocumentRepository documentRepository,
