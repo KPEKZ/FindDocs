@@ -1,5 +1,6 @@
 ﻿using FindDox.Abstractions.DataAccess;
 using FindDox.Abstractions.Services.DataAccess;
+using FindDox.Models.Api.Request;
 using FindDox.Models.Db;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,12 +36,31 @@ public class DocumentRepository : IDocumentRepository
 			?? throw new Exception("Документ не найден");
 	}
 
-	public async Task<IReadOnlyList<Document>> GetAll()
+	public async Task<IReadOnlyList<Document>> GetAllByFilters(GetAllRequest request)
 	{
-		return await _dbContext.Documents
+		IQueryable<Document> documents = _dbContext.Documents;
+
+		if (request.KeywordIds is not null && request.KeywordIds.Any())
+		{
+			documents = documents.Where(d => d.Keywords.Any(x => request.KeywordIds.Contains(x.Id)));
+		}
+		if (request.DocumentTypeIds is not null && request.DocumentTypeIds.Any())
+		{
+			documents = documents.Where(d => request.DocumentTypeIds.Contains(d.DocumentTypeId));
+		}
+		if (request.From.HasValue)
+		{
+			documents = documents.Where(d => d.ReleaseDate.DateTime > request.From);
+		}
+		if (request.To.HasValue)
+		{
+			documents = documents.Where(d => d.ReleaseDate.DateTime < request.To);
+		}
+
+		return await documents
 			.Include(x => x.Links)
-			.Include(x => x.Keywords)
 			.Include(x => x.DocumentType)
+			.Include(x => x.Keywords)
 			.ToListAsync();
 	}
 

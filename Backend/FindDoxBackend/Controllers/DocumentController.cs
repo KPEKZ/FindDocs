@@ -1,5 +1,6 @@
 ﻿using FindDox.Abstractions.Services.Domain;
 using FindDox.Models.Api;
+using FindDox.Models.Api.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FindDox.Api.Controllers;
@@ -25,9 +26,9 @@ public class DocumentController : ControllerBase
 
 	[HttpGet("all")]
 	[ProducesResponseType(typeof(Document), StatusCodes.Status200OK)]
-	public async Task<IActionResult> GetAll()
+	public async Task<IActionResult> GetAll([FromQuery] GetAllRequest request)
 	{
-		var result = await _documentService.GetAll();
+		var result = await _documentService.GetAllByFilters(request);
 		return Ok(result);
 	}
 
