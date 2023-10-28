@@ -21,6 +21,11 @@ public class DocumentTypeRepository : IDocumentTypeRepository
 			?? throw new Exception("Тип документа не найден");
 	}
 
+	public async Task<IReadOnlyList<DocumentType>> GetAll()
+	{
+		return await _dbContext.DocumentTypes.ToListAsync();
+	}
+
 	public async Task<DocumentType> Add(DocumentType document)
 	{
 		await _dbContext.DocumentTypes.AddAsync(document);

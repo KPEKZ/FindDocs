@@ -23,6 +23,14 @@ public class DocumentController : ControllerBase
 		return Ok(result);
 	}
 
+	[HttpGet("all")]
+	[ProducesResponseType(typeof(Document), StatusCodes.Status200OK)]
+	public async Task<IActionResult> GetAll()
+	{
+		var result = await _documentService.GetAll();
+		return Ok(result);
+	}
+
 	[HttpPost]
 	[ProducesResponseType(typeof(Document), StatusCodes.Status200OK)]
 	public async Task<IActionResult> Add([FromBody] Document document)
