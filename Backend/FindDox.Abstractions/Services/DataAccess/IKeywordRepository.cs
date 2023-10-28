@@ -6,6 +6,7 @@ public interface IKeywordRepository
 {
 	Task<Keyword> Get(Guid id);
 	Task<IReadOnlyList<Keyword>> GetAll();
+	Task<IReadOnlyList<Keyword>> GetMany(IReadOnlyList<Guid> ids);
 	Task<IReadOnlyList<Keyword>> GetManyByDocumentId(Guid documentId);
 
 	Task<Keyword> Add(Keyword keyword);
