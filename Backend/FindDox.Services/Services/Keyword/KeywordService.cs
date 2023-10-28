@@ -20,6 +20,11 @@ public class KeywordService : IKeywordService
 		return docType.ToApi();
 	}
 
+	public Task<IReadOnlyList<Models.Api.Keyword>> GetAll()
+	{
+		throw new NotImplementedException();
+	}
+
 	public async Task<Models.Api.Keyword> Add(AddKeyRequest request)
 	{
 		var key = request.Keyword.ToDbo(request.DocumentId);

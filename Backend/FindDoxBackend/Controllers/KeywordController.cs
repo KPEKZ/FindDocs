@@ -24,6 +24,14 @@ public class KeywordController : ControllerBase
 		return Ok(result);
 	}
 
+	[HttpGet("all")]
+	[ProducesResponseType(typeof(Keyword), StatusCodes.Status200OK)]
+	public async Task<IActionResult> GetAll()
+	{
+		var result = await _keywordService.GetAll();
+		return Ok(result);
+	}
+
 	[HttpPost]
 	[ProducesResponseType(typeof(Keyword), StatusCodes.Status200OK)]
 	public async Task<IActionResult> Add([FromBody] AddKeyRequest request)

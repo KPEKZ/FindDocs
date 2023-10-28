@@ -5,6 +5,8 @@ namespace FindDox.Abstractions.Services.Domain;
 public interface IDocumentService
 {
 	Task<Document> Get(Guid id);
+	Task<IReadOnlyList<Document>> GetAll();
+
 
 	Task<Document> Add(Document document);
 

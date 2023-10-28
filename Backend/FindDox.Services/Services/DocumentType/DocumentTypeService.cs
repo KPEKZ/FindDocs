@@ -19,6 +19,11 @@ public class DocumentTypeService : IDocumentTypeService
 		return docType.ToApi();
 	}
 
+	public Task<IReadOnlyList<Models.Api.DocumentType>> GetAll()
+	{
+		throw new NotImplementedException();
+	}
+
 	public async Task<Models.Api.DocumentType> Add(Models.Api.DocumentType documentType)
 	{
 		var doc = documentType.ToDbo();
