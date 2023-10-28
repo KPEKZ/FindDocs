@@ -17,4 +17,7 @@ public interface IFindBoxDbContext
 	DbSet<DocumentType> DocumentTypes { get; set; }
 	DbSet<Keyword> Keywords { get; set; }
 	DbSet<Link> Links { get; set; }
+	DbSet<User> Users { get; set; }
+	DbSet<Role> Roles { get; set; }
+	DbSet<UserRole> UsersToRoles { get; set; }
 }
