@@ -9,6 +9,9 @@ public class DocumentService : IDocumentService
 {
 	protected readonly IDocumentRepository _documentRepository;
 	protected readonly IDocumentTypeRepository _documentTypeRepository;
+	protected readonly IKeywordRepository _keywordRepository;
+
+
 	protected readonly IDocumentTypeService _documentTypeService;
 	protected readonly IKeywordService _keywordService;
 	protected readonly ILinkService _linkService;
@@ -17,22 +20,15 @@ public class DocumentService : IDocumentService
 		IDocumentTypeRepository documentTypeRepository,
 		ILinkService linkService,
 		IKeywordService keywordService,
-		IDocumentTypeService documentTypeService)
+		IDocumentTypeService documentTypeService,
+		IKeywordRepository keywordRepository)
 	{
 		_documentRepository = documentRepository;
 		_documentTypeRepository = documentTypeRepository;
 		_linkService = linkService;
 		_keywordService = keywordService;
 		_documentTypeService = documentTypeService;
-	}
-
-
-	public DocumentService(IDocumentRepository documentRepository,
-		IDocumentTypeRepository documentTypeRepository)
-	{
-		_documentRepository = documentRepository;
-		_documentTypeRepository = documentTypeRepository;
-
+		_keywordRepository = keywordRepository;
 	}
 
 	public async Task<Models.Api.Document> Get(Guid id)
@@ -49,35 +45,34 @@ public class DocumentService : IDocumentService
 
 	public async Task<Models.Api.Document> Add(Models.Api.Document document)
 	{
-		var docType = await _documentTypeService.Get(document.DocumentType.Id);
-
 		var doc = document.ToDbo();
-		doc.DocumentType = docType.ToDbo();
+
+		if (document.DocumentType is not null)
+			doc.DocumentType = document.DocumentType.ToDbo();
 
 		if (document.Links is not null && document.Links.Any())
-		{
-			var docLinks = await _linkService.GetMany(document.Links.Select(x => x.Id).ToList());
-			doc.Links = docLinks.Select(x => x.ToDbo(doc.Id)).ToList();
-		}
+			doc.Links = document.Links.Select(x => x.ToDbo(doc.Id)).ToList();
 
 		if (document.Keywords is not null && document.Keywords.Any())
-		{
-			var docKeywords = await _keywordService.GetMany(document.Keywords.Select(x => x.Id).ToList());
-			doc.Keywords = docKeywords.Select(x => x.ToDbo(doc.Id)).ToList();
-		}
+			doc.Keywords = document.Keywords.Select(x => x.ToDbo(doc.Id)).ToList();
 
 		var addedDoc = await _documentRepository.Add(doc);
 		await _documentRepository.Save();
+
 		return addedDoc.ToApi();
 	}
 
 	public async Task<Models.Api.Document> Update(Models.Api.Document document)
 	{
 		var doc = await _documentRepository.Get(document.Id);
+
 		await _documentTypeService.Update(document.DocumentType);
-		document.Keywords?.Select(x => _keywordService.Update(x));
-		document.Links?.Select(x => _linkService.Update(x));
-		
+
+		if (document.Keywords is not null && document.Keywords.Any())
+			doc.Keywords = document.Keywords.Select(x => x.ToDbo(doc.Id)).ToList();
+
+		if (document.Links is not null && document.Links.Any())
+			doc.Links = document.Links.Select(x => x.ToDbo(doc.Id)).ToList();
 
 		doc.ToUpdateDbo(document);
 
