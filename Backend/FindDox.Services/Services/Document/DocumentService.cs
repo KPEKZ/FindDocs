@@ -9,12 +9,29 @@ public class DocumentService : IDocumentService
 {
 	protected readonly IDocumentRepository _documentRepository;
 	protected readonly IDocumentTypeRepository _documentTypeRepository;
+	protected readonly IDocumentTypeService _documentTypeService;
+	protected readonly IKeywordService _keywordService;
+	protected readonly ILinkService _linkService;
+
+	public DocumentService(IDocumentRepository documentRepository,
+		IDocumentTypeRepository documentTypeRepository,
+		ILinkService linkService,
+		IKeywordService keywordService,
+		IDocumentTypeService documentTypeService)
+	{
+		_documentRepository = documentRepository;
+		_documentTypeRepository = documentTypeRepository;
+		_linkService = linkService;
+		_keywordService = keywordService;
+		_documentTypeService = documentTypeService;
+
 
 	public DocumentService(IDocumentRepository documentRepository,
 		IDocumentTypeRepository documentTypeRepository)
 	{
 		_documentRepository = documentRepository;
 		_documentTypeRepository = documentTypeRepository;
+
 	}
 
 	public async Task<Models.Api.Document> Get(Guid id)
@@ -45,6 +62,10 @@ public class DocumentService : IDocumentService
 	public async Task<Models.Api.Document> Update(Models.Api.Document document)
 	{
 		var doc = await _documentRepository.Get(document.Id);
+		await _documentTypeService.Update(document.DocumentType);
+		document.Keywords?.Select(x => _keywordService.Update(x));
+		document.Links?.Select(x => _linkService.Update(x));
+		
 
 		doc.ToUpdateDbo(document);
 
@@ -63,5 +84,6 @@ public class DocumentService : IDocumentService
 	public Task<IReadOnlyList<Models.Api.Document>> Find(FindDocumentsRequest request)
 	{
 		throw new NotImplementedException();
+
 	}
 }
