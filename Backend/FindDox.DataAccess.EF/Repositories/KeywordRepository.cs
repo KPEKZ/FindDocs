@@ -21,6 +21,12 @@ public class KeywordRepository : IKeywordRepository
 			?? throw new Exception("Ключевое слово не найдено");
 	}
 
+
+	public async Task<IReadOnlyList<Keyword>> GetAll()
+	{
+		return await _dbContext.Keywords.ToListAsync();
+	}
+
 	public async Task<IReadOnlyList<Keyword>> GetManyByDocumentId(Guid documentId)
 	{
 		return await _dbContext.Keywords

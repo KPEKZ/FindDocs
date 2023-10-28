@@ -35,6 +35,15 @@ public class DocumentRepository : IDocumentRepository
 			?? throw new Exception("Документ не найден");
 	}
 
+	public async Task<IReadOnlyList<Document>> GetAll()
+	{
+		return await _dbContext.Documents
+			.Include(x => x.Links)
+			.Include(x => x.Keywords)
+			.Include(x => x.DocumentType)
+			.ToListAsync();
+	}
+
 	public async Task<Document> Add(Document document)
 	{
 		await _dbContext.Documents.AddAsync(document);
@@ -57,6 +66,26 @@ public class DocumentRepository : IDocumentRepository
 		await _documentTypeRepository.Remove(document.DocumentType.Id);
 
 		_dbContext.Documents.Remove(document);
+	}
+
+	public async Task<IReadOnlyList<Document>> FindByDocumentTypes(IReadOnlyList<Guid> documentTypeIds)
+	{
+		return await _dbContext.Documents.Where(d => documentTypeIds.Contains(d.DocumentTypeId)).ToListAsync();
+	}
+
+	public async Task<IReadOnlyList<Document>> FindByName(string name)
+	{
+		return await _dbContext.Documents.Where(d => d.Name.Contains(name)).ToListAsync();
+	}
+
+	public async Task<IReadOnlyList<Document>> FindByNumber(string number)
+	{
+		return await _dbContext.Documents.Where(d => d.Number.Contains(number)).ToListAsync();
+	}
+
+	public async Task<IReadOnlyList<Document>> FindByKeywords(IReadOnlyList<string> keywords)
+	{
+		return await _dbContext.Documents.Where(d => d.Keywords.Any(k => keywords.Contains(k.Name))).ToListAsync();
 	}
 
 	public async Task<int> Save(CancellationToken ctx = default)
