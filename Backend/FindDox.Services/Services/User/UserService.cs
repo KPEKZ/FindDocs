@@ -33,6 +33,11 @@ public class UserService : IUserService
 		return addedDoc.ToApi();
 	}
 
+	public async Task AddRole(Guid roleId, Guid userId)
+	{
+		await _userRepository.AddRole(roleId, userId);
+	}
+
 	public async Task<Models.Api.User> Update(Models.Api.User user)
 	{
 		var u = await _userRepository.Get(user.Id);

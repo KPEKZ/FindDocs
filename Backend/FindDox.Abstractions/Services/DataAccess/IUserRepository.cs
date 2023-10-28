@@ -10,6 +10,7 @@ public interface IUserRepository
 	Task<IReadOnlyList<User>> GetAll();
 
 	Task<User> Add(User user);
+	Task AddRole(Guid roleId, Guid userId);
 
 	Task Update(User user);
 
