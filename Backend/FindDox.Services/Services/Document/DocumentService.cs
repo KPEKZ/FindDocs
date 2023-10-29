@@ -48,6 +48,28 @@ public class DocumentService : IDocumentService
 
 	public async Task<Models.Api.Document> Add(Models.Api.Document document)
 	{
+		var addedDoc = await AddDocument(document);
+		await _documentRepository.Save();
+
+		return addedDoc.ToApi();
+	}
+
+	public async Task<IReadOnlyList<Models.Api.Document>> AddMany(IReadOnlyList<Models.Api.Document> documents)
+	{
+		var addedDocuments = new List<Models.Db.Document>();
+		foreach (var doc in documents)
+		{
+			var addedDoc = await AddDocument(doc);
+			addedDocuments.Add(addedDoc);
+		}
+
+		await _documentRepository.Save();
+
+		return addedDocuments.Select(x => x.ToApi()).ToList();
+	}
+
+	private async Task<Models.Db.Document> AddDocument(Models.Api.Document document)
+	{
 		var doc = document.ToDbo();
 
 		if (document.DocumentType is not null)
@@ -68,9 +90,8 @@ public class DocumentService : IDocumentService
 		}
 
 		var addedDoc = await _documentRepository.Add(doc);
-		await _documentRepository.Save();
 
-		return addedDoc.ToApi();
+		return addedDoc;
 	}
 
 	public async Task<Models.Api.Document> Update(Models.Api.Document document)

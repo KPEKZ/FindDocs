@@ -10,6 +10,7 @@ public interface IDocumentService
 
 
 	Task<Document> Add(Document document);
+	Task<IReadOnlyList<Document>> AddMany(IReadOnlyList<Document> documents);
 
 	Task<Document> Update(Document document);
 
