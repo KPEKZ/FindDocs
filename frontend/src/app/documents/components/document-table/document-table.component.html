@@ -1,0 +1,41 @@
+
+
+
+<div class="list-wrapper" *ngIf="documents$ | async as docs">
+
+    <h1 class="list-header">Список документов</h1>
+
+    <mat-form-field class="list-searcher">
+        <mat-label>Наименование, Номер</mat-label>
+        <input (input)="onSearch($event)" type="text" matInput />
+        <mat-icon color="primary" matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-list class="list">
+        <a
+            *ngFor="let doc of docs; let idx = index"
+            [routerLink]="['/docs/', doc.id]"
+            class="list__link"
+        >
+            <mat-list-item class="list__item">
+
+                <div class="item-short-info">
+                    <mat-icon matListItemIcon color="primary">insert_drive_file</mat-icon>
+                    <span>{{idx + 1}}</span>. &nbsp; <span>{{doc.name}}</span>
+                </div>
+
+                <div class="item-actions">
+                    <button type="button" mat-icon-button (click)="openEditingFormDialog($event, doc)">
+                        <mat-icon color="primary">edit</mat-icon>
+                    </button>
+
+                    <button type="button" mat-icon-button (click)="deleteDocument($event, doc.id)">
+                        <mat-icon color="primary">delete</mat-icon>
+                    </button>
+                </div>
+
+            </mat-list-item>
+        </a>
+
+    </mat-list>
+</div>

@@ -1,0 +1,12 @@
+:host {
+    display: block;
+    height: 100%;
+    box-sizing: border-box;
+
+    .container {
+        max-width: 1400px;
+        height: 100%;
+        margin: auto;
+        padding: 0 80px;
+    }
+}

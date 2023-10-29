@@ -1,0 +1,17 @@
+
+<mat-drawer-container class="container">
+
+    <mat-drawer class="left-menu" mode="side" opened>
+        <ds-document-left-menu></ds-document-left-menu>
+    </mat-drawer>
+
+    <mat-drawer-content class="content">
+        <main>
+            <ds-work-zone>
+                <router-outlet></router-outlet>
+            </ds-work-zone>
+        </main>
+    </mat-drawer-content>
+
+
+</mat-drawer-container>

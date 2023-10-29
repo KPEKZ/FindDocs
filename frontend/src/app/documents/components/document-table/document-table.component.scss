@@ -1,0 +1,53 @@
+:host {
+    .list-wrapper {
+        padding-bottom: 120px;
+
+        .list-header {
+            margin-left: 16px;
+        }
+
+        .list-searcher {
+            margin-left: 16px;
+        }
+
+        .list {
+            &__link {
+                text-decoration: none;
+
+                .list__item {
+                    display: flex;
+
+                    .item-short-info {
+                        display: flex;
+                        align-items: center;
+                        gap: 7px;
+                    }
+
+                    .item-actions {
+                        display: flex;
+                        align-items: center;
+                        gap: 15px;
+                    }
+
+
+
+                    ::ng-deep .mat-mdc-list-item-unscoped-content {
+                        display:flex;
+                        justify-content: space-between;
+                    }
+
+                    &:hover {
+                        background-color: #f3f3f3;
+                        cursor: pointer;
+                    }
+
+                }
+
+
+            }
+
+        }
+
+    }
+
+}

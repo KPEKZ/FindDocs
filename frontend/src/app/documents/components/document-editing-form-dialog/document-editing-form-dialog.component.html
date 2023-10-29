@@ -1,0 +1,65 @@
+<div class="container">
+    <ng-container *ngIf="!data.isEditing">
+        <h2 class="header">Создание Документа</h2>
+    </ng-container>
+    <ng-container *ngIf="data.isEditing">
+        <h2 class="header">Редактирование Документа</h2>
+    </ng-container>
+    <form class="editing-form"  [formGroup]="documentsEditingForm">
+        <mat-form-field class="form-field">
+            <mat-label>Наименование</mat-label>
+            <input formControlName="name" matInput />
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Номер</mat-label>
+            <input formControlName="number" matInput />
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Тип Документа</mat-label>
+            <mat-select #KeyWordSelector formControlName="documentTypeId">
+                <mat-option
+                    *ngFor="let type of documentTypes$ | async"
+                    [value]="type.id"
+                >
+                    {{type.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Ключевые слова Документа</mat-label>
+            <mat-select #KeyWordSelector multiple formControlName="keywordIds">
+                <mat-option
+                    *ngFor="let keyword of documentKeywords$ | async"
+                    [value]="keyword.id"
+                >
+                    {{keyword.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <mat-label>Дата выхода</mat-label>
+            <input formControlName="releaseDate" matInput [matDatepicker]="pickerStart">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <mat-label>Дата принятия</mat-label>
+            <input formControlName="takeEffectDate" matInput [matDatepicker]="pickerEnd">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="createDocument()">
+            <ng-container *ngIf="!data.isEditing">
+                Создать
+            </ng-container>
+            <ng-container *ngIf="data.isEditing">
+                Обновить
+            </ng-container>
+        </button>
+    </form>
+</div>

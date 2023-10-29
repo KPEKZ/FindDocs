@@ -1,0 +1,10 @@
+:host {
+    .form {
+        .form-container {
+            display: flex;
+            flex-flow: column nowrap;
+            padding: 16px;
+            gap: 15px;
+        }
+    }
+}
