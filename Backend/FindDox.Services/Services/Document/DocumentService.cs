@@ -125,9 +125,9 @@ public class DocumentService : IDocumentService
 		await _documentRepository.Save();
 	}
 
-	public async Task<IReadOnlyList<Models.Api.Document>> Search(string name, string number)
+	public async Task<IReadOnlyList<Models.Api.Document>> Search(string name)
 	{
-		var documents = await _documentRepository.Search(name, number);
+		var documents = await _documentRepository.Search(name);
 
 		return documents.Select(x => x.ToApi()).ToList();
 	}

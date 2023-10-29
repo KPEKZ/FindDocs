@@ -108,24 +108,16 @@ public class DocumentRepository : IDocumentRepository
 		return Task.CompletedTask;
 	}
 
-	public async Task<IReadOnlyList<Document>> Search(string name, string number)
+	public async Task<IReadOnlyList<Document>> Search(string name)
 	{
 		IQueryable<Document> documents = _dbContext.Documents;
-
-		if (name is not null)
-		{
-			documents = documents.Where(x => x.Name.Contains(name));
-		}
-		if (number is not null)
-		{
-			documents = documents.Where(x => x.Number.Contains(number));
-		}
 
 		return await _dbContext.Documents
 			.Include(x => x.Links)
 			.Include(x => x.DocumentType)
 			.Include(x => x.DocumentKeywords)
 				.ThenInclude(x => x.Keyword)
+			.Where(x => x.Name.Contains(name) || x.Number.Contains(name))
 			.ToListAsync();
 	}
 

@@ -26,9 +26,9 @@ public class DocumentController : ControllerBase
 
 	[HttpGet("search")]
 	[ProducesResponseType(typeof(IReadOnlyList<Document>), StatusCodes.Status200OK)]
-	public async Task<IActionResult> GetAll([FromQuery] string name, string number)
+	public async Task<IActionResult> GetAll([FromQuery] string name)
 	{
-		var result = await _documentService.Search(name, number);
+		var result = await _documentService.Search(name);
 		return Ok(result);
 	}
 
