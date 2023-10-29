@@ -5,13 +5,12 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { IFormFields } from '@core/models/form-fields';
 import { DocumentTypeCreateDto } from '../../models/document-type-create-dto';
 import { DocumentTypeId, DocumentTypeName } from '../../models/document-type';
-import { debounceTime, tap } from 'rxjs';
+import { debounceTime } from 'rxjs';
 import { shareReplayOneRefCount } from '@core/utils/share-replay-one-ref-count';
 import { DestroyService } from '@core/services/destroy.service';
 import { DocumentsKeywordRepositoryService } from '../../services/documents-keyword-repository.service';
 import { DocumentsRepositoryService } from '../../services/documents-repository.service';
 import { DocumentsTypeRepositoryService } from '../../services/documents-type-repository.service';
-import { documentsActions } from '../../store/document.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
