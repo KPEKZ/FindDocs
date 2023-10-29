@@ -9,11 +9,12 @@
     <button mat-menu-item (click)="openEditingFormDialog()">Создать новый документ</button>
     <button mat-menu-item (click)="openEditingKeywordFormDialog()">Создание ключевого слова</button>
     <button mat-menu-item (click)="openEditingTypeFormDialog()">Создание типа документа</button>
-    <button mat-menu-item>
+    <button mat-menu-item disabled>
 
-        <input type="file" name="file" [ngStyle]="{'visibility': 'hidden'}" id="inputGroupFile" (change)="handleImport($event)"
+        <!-- <input type="file" name="file" [ngStyle]="{'visibility': 'hidden'}" id="inputGroupFile" (change)="handleImport($event)"
         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
 
-        <label class="custom-file-label" for="inputGroupFile">Импорт документов (Exel)</label>
+        <label class="custom-file-label" for="inputGroupFile">Импорт документов (Exel)</label> -->
+        Импорт документов (Exel)
     </button>
 </mat-menu>
