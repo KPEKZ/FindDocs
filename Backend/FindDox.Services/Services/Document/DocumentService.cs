@@ -64,7 +64,7 @@ public class DocumentService : IDocumentService
 		if (document.Keywords is not null && document.Keywords.Any())
 		{
 			var keywords = await _keywordRepository.GetMany(document.Keywords.Select(x => x.Id).ToList());
-			doc.Keywords = keywords.ToList();
+			var addedKeywords = await _documentRepository.AddKeywords(keywords.Select(x => x.Id).ToList(), doc.Id);
 		}
 
 		var addedDoc = await _documentRepository.Add(doc);
@@ -80,7 +80,12 @@ public class DocumentService : IDocumentService
 		doc.DocumentType = document.DocumentType.ToDbo();
 
 		if (document.Keywords is not null && document.Keywords.Any())
-			doc.Keywords = document.Keywords.Select(x => x.ToDbo(doc.Id)).ToList();
+		{
+			await _documentRepository.RemoveKeywords(doc.DocumentKeywords.Select(x => x.KeywordId).ToList(), doc.Id);
+
+			var addedKeywords = await _documentRepository.AddKeywords(document.Keywords.Select(x => x.Id).ToList(), doc.Id);
+			doc.DocumentKeywords = addedKeywords.ToList();
+		}
 
 		if (document.Links is not null && document.Links.Any())
 			doc.Links = document.Links.Select(x => x.ToDbo(doc.Id)).ToList();

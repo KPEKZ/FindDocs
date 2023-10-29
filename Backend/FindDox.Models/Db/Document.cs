@@ -20,8 +20,8 @@ public class Document
 	[ForeignKey(nameof(DocumentTypeId))]
 	public DocumentType DocumentType { get; set; }
 
-	[InverseProperty(nameof(Keyword.Document))]
-	public ICollection<Keyword> Keywords { get; set; }
+	[InverseProperty(nameof(KeywordDocument.Document))]
+	public ICollection<KeywordDocument> DocumentKeywords { get; set; }
 
 	[InverseProperty(nameof(Link.Document))]
 	public ICollection<Link> Links { get; set; }

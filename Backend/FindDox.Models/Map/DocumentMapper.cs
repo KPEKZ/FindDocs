@@ -21,7 +21,7 @@ public static class DocumentMapper
 		TakeEffectDate = document.TakeEffectDate,
 		DocumentType = document.DocumentType?.ToApi(),
 		Links = document.Links?.Select(x => x.ToApi()).ToList(),
-		Keywords = document.Keywords?.Select(x => x.ToApi()).ToList(),
+		Keywords = document.DocumentKeywords?.Select(x => x.Keyword).Select(x => x.ToApi()).ToList(),
 	};
 
 	public static void ToUpdateDbo(this Db.Document document, Api.Document updateDocument) 

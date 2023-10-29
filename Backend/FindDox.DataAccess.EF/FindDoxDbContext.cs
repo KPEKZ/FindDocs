@@ -15,4 +15,5 @@ public class FindDoxDbContext : DbContext, IFindBoxDbContext
 	public DbSet<User> Users { get; set; }
 	public DbSet<Role> Roles { get; set; }
 	public DbSet<UserRole> UsersToRoles { get; set; }
+	public DbSet<KeywordDocument> KeywordDocument { get; set; }
 }

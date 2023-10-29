@@ -31,7 +31,8 @@ public class DocumentRepository : IDocumentRepository
 		return await _dbContext.Documents
 			.Include(x => x.Links)
 			.Include(x => x.DocumentType)
-			.Include(x => x.Keywords)
+			.Include(x => x.DocumentKeywords)
+				.ThenInclude(x => x.Keyword)
 			.SingleOrDefaultAsync(x => x.Id.Equals(id))
 			?? throw new Exception("Документ не найден");
 	}
@@ -42,7 +43,7 @@ public class DocumentRepository : IDocumentRepository
 
 		if (request.KeywordIds is not null && request.KeywordIds.Any())
 		{
-			documents = documents.Where(d => d.Keywords.Any(x => request.KeywordIds.Contains(x.Id)));
+			documents = documents.Where(d => d.DocumentKeywords.Select(x => x.Keyword).Any(x => request.KeywordIds.Contains(x.Id)));
 		}
 		if (request.DocumentTypeIds is not null && request.DocumentTypeIds.Any())
 		{
@@ -60,7 +61,8 @@ public class DocumentRepository : IDocumentRepository
 		return await documents
 			.Include(x => x.Links)
 			.Include(x => x.DocumentType)
-			.Include(x => x.Keywords)
+			.Include(x => x.DocumentKeywords)
+				.ThenInclude(x => x.Keyword)
 			.ToListAsync();
 	}
 
@@ -68,6 +70,19 @@ public class DocumentRepository : IDocumentRepository
 	{
 		await _dbContext.Documents.AddAsync(document);
 		return document;
+	}
+
+	public async Task<IReadOnlyList<KeywordDocument>> AddKeywords(IReadOnlyList<Guid> ids, Guid docId)
+	{
+		var documentKeywords = ids.Select(x =>
+			new KeywordDocument
+			{
+				KeywordId = x,
+				DocumentId = docId
+			});
+		await _dbContext.KeywordDocument.AddRangeAsync(documentKeywords);
+
+		return documentKeywords.ToList();
 	}
 
 	public Task Update(Document document)
@@ -84,6 +99,13 @@ public class DocumentRepository : IDocumentRepository
 		await _linkRepository.RemoveRange(id);
 
 		_dbContext.Documents.Remove(document);
+	}
+
+	public Task RemoveKeywords(IReadOnlyList<Guid> ids, Guid docId)
+	{
+		_dbContext.KeywordDocument.Where(x => x.DocumentId.Equals(docId) && ids.Contains(x.KeywordId));
+
+		return Task.CompletedTask;
 	}
 
 	public async Task<int> Save(CancellationToken ctx = default)

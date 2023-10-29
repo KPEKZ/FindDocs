@@ -30,7 +30,7 @@ public class KeywordRepository : IKeywordRepository
 	public async Task<IReadOnlyList<Keyword>> GetManyByDocumentId(Guid documentId)
 	{
 		return await _dbContext.Keywords
-				.Where(x => x.DocumentId.Equals(documentId))
+				.Where(x => x.KeywordDocuments.Select(x => x.DocumentId).Equals(documentId))
 				.ToListAsync();
 	}
 
