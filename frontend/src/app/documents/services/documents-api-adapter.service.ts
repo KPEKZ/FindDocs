@@ -1,10 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { DocumentsAdapterService } from './documents-adapter.service';
 import { Observable, of } from 'rxjs';
-import { IDocument, DocumentId } from '../models/document';
+import { IDocument, DocumentId, DocumentDate } from '../models/document';
 import { DocumentCreateDto } from '../models/document-create-dto';
 import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
+import { DocumentKeywordId } from '../models/document-keyword';
+import { DocumentTypeId } from '../models/document-type';
+import { removeExtraSign } from '@core/utils/remove-extra-sign';
 
 @Injectable()
 export class DocumentsApiAdapterService extends DocumentsAdapterService {
@@ -13,73 +16,43 @@ export class DocumentsApiAdapterService extends DocumentsAdapterService {
 
     protected override readonly url = 'https://localhost:7222/Document';
 
-    public override getDocuments(): Observable<IDocument []> {
+    public override getDocuments(keywordIds ?: DocumentKeywordId [], docTypeIds ?: DocumentTypeId [], dateFrom ?: DocumentDate, dateTo?: DocumentDate): Observable<IDocument []> {
 
-        // const keys = Object.keys(localStorage);
+        console.log(keywordIds);
 
-        // const regex = /^(DT-)/gmi;
+        const keyws = keywordIds ? keywordIds.map(id => `keywordIds=${id}`): null;
+        const docs = docTypeIds ? docTypeIds.map(id => `documentTypeIds=${id}`): null;
+        const start = dateFrom ? ['from=' + new Date(dateFrom).toISOString()] : null;
+        const end = dateTo ? ['to=' + new Date(dateTo).toISOString()] : null;
 
-        // const clearedKeys = keys.filter(key => key.match(regex));
+        let query = [keyws, docs, start, end]
+            .filter(t => !_.isNil(t))
+            .map(v => v?.join('&'))
+            .join('&');
 
-        // const documents: IDocument[] = clearedKeys.map(ck => JSON.parse(localStorage[ck]));
+        query = removeExtraSign(query, '&');
 
-        // return of(documents);
+        const url = [`${this.url}/all`, query].join('?');
 
-        return this.http.get<IDocument []>(`${this.url}/all`);
+        return this.http.get<IDocument []>(url);
     }
 
     public override getDocumentById(id: DocumentId): Observable<IDocument> {
-
-        // const rawDocument = localStorage.getItem(`DT-${id}`);
-
-        // if (rawDocument){
-        //     const document: IDocument = JSON.parse(rawDocument);
-
-        //     return of(document)
-        // }
-
-        // return of({} as IDocument);
 
         return this.http.get<IDocument>(`${this.url}?id=${id}`);
     }
 
     public override updateDocumentById(id: DocumentId, document: DocumentCreateDto): Observable<IDocument> {
-        // const rawDocument = localStorage.getItem(`DT-${id}`);
-
-        // if (rawDocument){
-        //     localStorage.removeItem(`DT-${id}`);
-
-        //     localStorage.setItem(`DT-${id}`, JSON.stringify(document));
-
-        //     return of({id, ...document})
-        // }
-
-        // return of({} as IDocument);
 
         return this.http.put<IDocument>(`${this.url}`, {id, ...document});
     }
 
     public override createDocument(document: DocumentCreateDto): Observable<IDocument> {
 
-        // const generatedId = _.random(0, 1_000_000);
-
-        // const id = `DT-${generatedId}`;
-
-        // localStorage.setItem(id, JSON.stringify({id: generatedId, ...document}));
-
-        // return of(({id: generatedId, ...document}) as IDocument)
-
         return this.http.post<IDocument>(`${this.url}`, document);
     }
 
     public override deleteDocumentById(id: DocumentId): Observable<void> {
-        // const rawDocument = localStorage.getItem(`DT-${id}`);
-
-        // if (rawDocument){
-        //     localStorage.removeItem(`DT-${id}`);
-        // }
-
-        // return of();
 
         return this.http.delete<void>(`${this.url}?id=${id}`);
     }

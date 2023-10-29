@@ -5,10 +5,17 @@ import { documentsActions } from "./document.actions";
 const initialState: DocumentsState = {
     documents: [],
     documentsIsLoading: false,
+    documentKeywords: [],
+    documentKeywordsIsLoading: false,
+    documentTypes: [],
+    documentTypesIsLoading: false,
 }
 
 const reducer = createReducer<DocumentsState>(
     initialState,
+
+    //#region documents
+
     on(documentsActions.loadDocuments, (state): DocumentsState => ({
         ...state,
         documentsIsLoading: true,
@@ -53,6 +60,105 @@ const reducer = createReducer<DocumentsState>(
     on(documentsActions.deleteDocumentFailed, (state): DocumentsState => ({
         ...state,
     })),
+
+    //#endregion documents
+
+    //#region keywords
+
+    on(documentsActions.loadDocumentsKeyword, (state): DocumentsState => ({
+        ...state,
+        documentKeywordsIsLoading: true,
+    })),
+    on(documentsActions.loadDocumentsKeywordSuccess, (state, { keywords }): DocumentsState => ({
+        ...state,
+        documentKeywordsIsLoading: false,
+        documentKeywords: keywords,
+    })),
+    on(documentsActions.loadDocumentsKeywordFailed, (state): DocumentsState => ({
+        ...state,
+        documentKeywordsIsLoading: false,
+    })),
+    on(documentsActions.updateDocumentKeyword, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.updateDocumentKeywordSuccess, (state, { keyword }): DocumentsState => ({
+        ...state,
+        documentKeywords: [...state.documentKeywords.filter(d => d.id !== keyword.id), keyword],
+    })),
+    on(documentsActions.updateDocumentKeywordFailed, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.createDocumentKeyword, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.createDocumentKeywordSuccess, (state, { keyword }): DocumentsState => ({
+        ...state,
+        documentKeywords: [...state.documentKeywords, keyword],
+    })),
+    on(documentsActions.createDocumentKeywordFailed, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.deleteDocumentKeyword, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.deleteDocumentKeywordSuccess, (state, { id }): DocumentsState => ({
+        ...state,
+        documentKeywords: [...state.documentKeywords.filter(d => d.id !== id)],
+    })),
+    on(documentsActions.deleteDocumentKeywordFailed, (state): DocumentsState => ({
+        ...state,
+    })),
+
+    //#endregion keywords
+
+    //#region document-types
+
+    on(documentsActions.loadDocumentTypes, (state): DocumentsState => ({
+        ...state,
+        documentTypesIsLoading: true,
+    })),
+    on(documentsActions.loadDocumentTypesSuccess, (state, { documentTypes }): DocumentsState => ({
+        ...state,
+        documentTypesIsLoading: false,
+        documentTypes,
+    })),
+    on(documentsActions.loadDocumentTypesFailed, (state): DocumentsState => ({
+        ...state,
+        documentTypesIsLoading: false,
+    })),
+    on(documentsActions.updateDocumentType, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.updateDocumentTypeSuccess, (state, { documentType }): DocumentsState => ({
+        ...state,
+        documentTypes: [...state.documentTypes.filter(d => d.id !== documentType.id), documentType],
+    })),
+    on(documentsActions.updateDocumentTypeFailed, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.createDocumentType, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.createDocumentTypeSuccess, (state, { documentType }): DocumentsState => ({
+        ...state,
+        documentTypes: [...state.documentTypes, documentType],
+    })),
+    on(documentsActions.createDocumentTypeFailed, (state): DocumentsState => ({
+        ...state,
+        documentsIsLoading: false,
+    })),
+    on(documentsActions.deleteDocumentType, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.deleteDocumentTypeSuccess, (state, { id }): DocumentsState => ({
+        ...state,
+        documentTypes: [...state.documentTypes.filter(d => d.id !== id)],
+    })),
+    on(documentsActions.deleteDocumentTypeFailed, (state): DocumentsState => ({
+        ...state,
+    })),
+
+    //#endregion document-types
 );
 
 export function documentReducer(state: DocumentsState | undefined, action: Action): DocumentsState {

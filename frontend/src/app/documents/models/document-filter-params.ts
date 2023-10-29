@@ -1,10 +1,10 @@
 import { DocumentDate} from "./document"
-import { IDocumentKeyword } from "./document-keyword"
-import { IDocumentType } from "./document-type"
+import { DocumentKeywordId } from "./document-keyword"
+import { DocumentTypeId } from "./document-type"
 
 export type DocumentFilterParams = {
-    keywords: IDocumentKeyword [],
-    types: IDocumentType [],
+    keywords: DocumentKeywordId [],
+    types: DocumentTypeId [],
     dateStartFrom: DocumentDate,
     dateEndTo: DocumentDate,
 }

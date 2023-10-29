@@ -17,6 +17,11 @@ import { CoreModule } from '@core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DocumentEditingFormDialogComponent } from './components/document-editing-form-dialog/document-editing-form-dialog.component';
+import { DocumentsKeywordRepositoryService } from './services/documents-keyword-repository.service';
+import { DocumentsTypeRepositoryService } from './services/documents-type-repository.service';
+import { DocumentsKeywordApiService } from './services/documents-keyword-api.service';
+import { DocumentsTypeApiService } from './services/documents-type-api.service';
 
 
 
@@ -25,7 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DocumentPageComponent,
     DocumentComponent,
     DocumentTableComponent,
-    DocumentLeftMenuComponent
+    DocumentLeftMenuComponent,
+    DocumentEditingFormDialogComponent
   ],
   imports: [
     CommonModule,
@@ -44,6 +50,10 @@ import { ReactiveFormsModule } from '@angular/forms';
       provide: DocumentsAdapterService,
       useClass: DocumentsApiAdapterService,
     },
+    DocumentsKeywordRepositoryService,
+    DocumentsTypeRepositoryService,
+    DocumentsKeywordApiService,
+    DocumentsTypeApiService,
   ]
 })
 export class DocumentsModule {
@@ -51,6 +61,10 @@ export class DocumentsModule {
   private readonly store = inject(Store);
 
   constructor() {
-    this.store.dispatch(documentsActions.loadDocuments());
+    this.store.dispatch(documentsActions.loadDocuments({}));
+
+    this.store.dispatch(documentsActions.loadDocumentTypes());
+
+    this.store.dispatch(documentsActions.loadDocumentsKeyword());
   }
 }

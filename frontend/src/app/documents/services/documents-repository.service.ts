@@ -25,6 +25,7 @@ export class DocumentsRepositoryService implements IDocumentRepository {
 
     public createDocument(document: DocumentCreateDto): void {
         this.store.dispatch(documentsActions.createDocument({document}));
+        console.log(document);
     }
 
     public updateDocumentById(id: DocumentId, document: DocumentCreateDto): void {
