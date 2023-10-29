@@ -96,8 +96,6 @@ export class DocumentEditingFormDialogComponent {
 
                     if (kids && tids && this.data.isEditing && this.data.editingDocument) {
 
-                        console.log(values, kids, tids);
-
                         this.documentsService.updateDocumentById(this.data.editingDocument.id, {
                             name: values.name,
                             number: values.number,

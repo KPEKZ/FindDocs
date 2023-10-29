@@ -22,6 +22,8 @@ import { DocumentsKeywordRepositoryService } from './services/documents-keyword-
 import { DocumentsTypeRepositoryService } from './services/documents-type-repository.service';
 import { DocumentsKeywordApiService } from './services/documents-keyword-api.service';
 import { DocumentsTypeApiService } from './services/documents-type-api.service';
+import { DocumentKewordEditingFormDialogComponent } from './components/document-keword-editing-form-dialog/document-keword-editing-form-dialog.component';
+import { DocumentTypeEditingFormDialogComponent } from './components/document-type-editing-form-dialog/document-type-editing-form-dialog.component';
 
 
 
@@ -31,7 +33,9 @@ import { DocumentsTypeApiService } from './services/documents-type-api.service';
     DocumentComponent,
     DocumentTableComponent,
     DocumentLeftMenuComponent,
-    DocumentEditingFormDialogComponent
+    DocumentEditingFormDialogComponent,
+    DocumentKewordEditingFormDialogComponent,
+    DocumentTypeEditingFormDialogComponent
   ],
   imports: [
     CommonModule,

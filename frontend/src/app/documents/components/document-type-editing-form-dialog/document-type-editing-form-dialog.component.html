@@ -1,0 +1,31 @@
+<div class="container">
+
+    <span *ngIf="(documentTypes$ | async)?.length === 0">Нет типов документов</span>
+
+    <mat-list class="list">
+        <mat-list-item *ngFor="let type of documentTypes$ | async as types; let idx = index">
+            <mat-icon matListItemIcon>label</mat-icon>
+
+            <div class="list-content">
+                <span>{{idx + 1}}</span>. &nbsp; <span class="name">{{type.name}}</span>
+            </div>
+
+            <div class="list-actions">
+                <button type="button" mat-icon-button (click)="deleteDocumentType(type.id)">
+                    <mat-icon color="primary">delete</mat-icon>
+                </button>
+            </div>
+
+        </mat-list-item>
+    </mat-list>
+
+    <form class="editing-form"  [formGroup]="documentsTypeEditingForm"  #form>
+        <mat-form-field class="form-field">
+            <mat-label>Наименование</mat-label>
+            <input formControlName="name" matInput #name />
+        </mat-form-field>
+    </form>
+    <button mat-raised-button color="primary" (click)="createDocumentType(name.value)">
+        Создать
+    </button>
+</div>

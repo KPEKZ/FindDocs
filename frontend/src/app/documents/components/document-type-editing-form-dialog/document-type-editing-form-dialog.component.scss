@@ -1,0 +1,49 @@
+:host {
+    .container {
+        padding: 20px;
+        display: flex;
+        flex-flow: column;
+        overflow: hidden;
+        gap: 20px;
+
+        .list {
+            height: 400px;
+            overflow: auto;
+
+            .list-content {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                width: 50%;
+
+                .name {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            .list-actions {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+
+
+            ::ng-deep .mat-mdc-list-item-unscoped-content {
+                display:flex;
+                justify-content: space-between;
+            }
+        }
+
+        .editing-form {
+            display: flex;
+            flex-flow: column;
+            gap: 20px;
+        }
+    }
+}
+
+::ng-deep .dialog-type-container {
+    width: 40%;
+}

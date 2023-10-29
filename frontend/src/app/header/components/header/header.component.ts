@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentEditingFormDialogComponent } from 'src/app/documents/components/document-editing-form-dialog/document-editing-form-dialog.component';
+import { DocumentKewordEditingFormDialogComponent } from 'src/app/documents/components/document-keword-editing-form-dialog/document-keword-editing-form-dialog.component';
+import { DocumentTypeEditingFormDialogComponent } from 'src/app/documents/components/document-type-editing-form-dialog/document-type-editing-form-dialog.component';
 import { DocumentsService } from 'src/app/documents/services/documents.service';
 
 @Component({
@@ -19,6 +21,18 @@ export class HeaderComponent {
                 isEditing: false,
                 editingDocument: null,
             }
+        });
+    }
+
+    public openEditingKeywordFormDialog(): void {
+        this.dialog.open(DocumentKewordEditingFormDialogComponent, {
+            panelClass: 'dialog-keyword-container',
+        });
+    }
+
+    public openEditingTypeFormDialog(): void {
+        this.dialog.open(DocumentTypeEditingFormDialogComponent, {
+            panelClass: 'dialog-type-container',
         });
     }
 }
