@@ -103,4 +103,11 @@ public class DocumentService : IDocumentService
 		await _documentRepository.Remove(id);
 		await _documentRepository.Save();
 	}
+
+	public async Task<IReadOnlyList<Models.Api.Document>> Search(string name, string number)
+	{
+		var documents = await _documentRepository.Search(name, number);
+
+		return documents.Select(x => x.ToApi()).ToList();
+	}
 }

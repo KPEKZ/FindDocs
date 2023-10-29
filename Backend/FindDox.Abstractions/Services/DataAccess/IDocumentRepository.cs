@@ -16,6 +16,8 @@ public interface IDocumentRepository
 	Task Remove(Guid id);
 	Task RemoveKeywords(IReadOnlyList<Guid> ids, Guid docId);
 
+	Task<IReadOnlyList<Document>> Search(string name, string number);
+
 	Task<int> Save(CancellationToken ctx = default);
 }
 

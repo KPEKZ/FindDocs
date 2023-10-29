@@ -14,6 +14,8 @@ public interface IDocumentService
 	Task<Document> Update(Document document);
 
 	Task Remove(Guid id);
+
+	Task<IReadOnlyList<Document>> Search(string name, string number);
 }
 
 

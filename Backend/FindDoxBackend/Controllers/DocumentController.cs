@@ -24,8 +24,16 @@ public class DocumentController : ControllerBase
 		return Ok(result);
 	}
 
+	[HttpGet("search")]
+	[ProducesResponseType(typeof(IReadOnlyList<Document>), StatusCodes.Status200OK)]
+	public async Task<IActionResult> GetAll([FromQuery] string name, string number)
+	{
+		var result = await _documentService.Search(name, number);
+		return Ok(result);
+	}
+
 	[HttpGet("all")]
-	[ProducesResponseType(typeof(Document), StatusCodes.Status200OK)]
+	[ProducesResponseType(typeof(IReadOnlyList<Document>), StatusCodes.Status200OK)]
 	public async Task<IActionResult> GetAll([FromQuery] GetAllRequest request)
 	{
 		var result = await _documentService.GetAllByFilters(request);
