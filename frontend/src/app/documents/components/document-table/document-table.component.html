@@ -7,7 +7,8 @@
 
     <mat-form-field class="list-searcher">
         <mat-label>Наименование, Номер</mat-label>
-        <input type="text" matInput />
+        <input (input)="onSearch($event)" type="text" matInput />
+        <mat-icon color="primary" matSuffix>search</mat-icon>
     </mat-form-field>
 
     <mat-list class="list">

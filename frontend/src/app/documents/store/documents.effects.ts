@@ -7,7 +7,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { documentsActions } from "./document.actions";
 import { catchError, map, mergeMap, switchMap, tap } from "rxjs";
 import { DocumentCreateDto } from "../models/document-create-dto";
-import { DocumentDate, DocumentId } from "../models/document";
+import { DocumentDate, DocumentId, IDocument } from "../models/document";
 import { DocumentsKeywordApiService } from "../services/documents-keyword-api.service";
 import { DocumentsTypeApiService } from "../services/documents-type-api.service";
 import { DocumentKeywordCreateDto } from "../models/document-keyword-create-dto";
@@ -24,6 +24,26 @@ export class DocumentsEffects {
     private readonly actions = inject(Actions);
 
     //#region documents
+
+    public readonly importDocuments = createEffect(() => this.actions.pipe(
+        ofType(documentsActions.importDocuments),
+        mergeMap((prop: {documents: IDocument []}) => this.documentsAdapter.importDocuments(prop.documents).pipe(
+            map(documents => documentsActions.importDocumentsSuccess({documents})),
+        )),
+        catchError(() => [
+            documentsActions.importDocumentsFailed()
+        ]),
+    ));
+
+    public readonly searchDocuments = createEffect(() => this.actions.pipe(
+        ofType(documentsActions.searchDocuments),
+        mergeMap((prop: {name: string}) => this.documentsAdapter.getSearchResults(prop.name).pipe(
+            map(documents => documentsActions.searchDocumentsSuccess({documents})),
+        )),
+        catchError(() => [
+            documentsActions.searchDocumentsFailed()
+        ]),
+    ));
 
     public readonly loadDocuments = createEffect(() => this.actions.pipe(
         ofType(documentsActions.loadDocuments),

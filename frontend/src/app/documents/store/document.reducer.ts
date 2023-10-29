@@ -60,6 +60,26 @@ const reducer = createReducer<DocumentsState>(
     on(documentsActions.deleteDocumentFailed, (state): DocumentsState => ({
         ...state,
     })),
+    on(documentsActions.searchDocuments, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.searchDocumentsSuccess, (state, { documents }): DocumentsState => ({
+        ...state,
+        documents,
+    })),
+    on(documentsActions.searchDocumentsFailed, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.importDocuments, (state): DocumentsState => ({
+        ...state,
+    })),
+    on(documentsActions.importDocumentsSuccess, (state, { documents }): DocumentsState => ({
+        ...state,
+        documents: [...state.documents, ...documents],
+    })),
+    on(documentsActions.importDocumentsFailed, (state): DocumentsState => ({
+        ...state,
+    })),
 
     //#endregion documents
 

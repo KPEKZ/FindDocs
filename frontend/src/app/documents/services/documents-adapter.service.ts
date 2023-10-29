@@ -19,4 +19,8 @@ export abstract class DocumentsAdapterService {
   abstract createDocument(document: DocumentCreateDto): Observable<IDocument>;
 
   abstract deleteDocumentById(id: DocumentId): Observable<void>;
+
+  abstract getSearchResults(name: string): Observable<IDocument []>;
+
+  abstract importDocuments(documents: IDocument[]): Observable<IDocument []>
 }

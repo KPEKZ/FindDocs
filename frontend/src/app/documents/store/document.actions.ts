@@ -104,4 +104,16 @@ export const documentsActions = {
 
     //#endregion delete-document-type
 
+    //#region document-search
+
+    searchDocuments: createAction('[Document] Delete document type', props<{ name: string }>()),
+    searchDocumentsSuccess: createAction('[Document] Delete document type success', props<{ documents: IDocument [] }>()),
+    searchDocumentsFailed: createAction('[Document] Delete document type failed'),
+
+    //#endregion document-search
+
+    importDocuments: createAction('[Document] import document type', props<{ documents: IDocument [] }>()),
+    importDocumentsSuccess: createAction('[Document] import document type success', props<{ documents: IDocument [] }>()),
+    importDocumentsFailed: createAction('[Document] import document type failed'),
+
 };

@@ -3,7 +3,7 @@ import { IDocumentType } from "./document-type";
 import { IDocumentKeyword } from "./document-keyword";
 import { IDocumentLink } from "./document-link";
 
-export type DocumentId = Brand<number,'document-id'>;
+export type DocumentId = Brand<string,'document-id'>;
 
 export type DocumentName = Brand<string, 'document-name'>;
 

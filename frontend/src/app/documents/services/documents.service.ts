@@ -74,6 +74,10 @@ export class DocumentsService {
         this.documentsRepository.deleteDocumentById(id);
     }
 
+    // public getDocumentsBySearch(name: string): Observable<IDocument []> {
+    //     return this.documentsApi.getSearchResults(name);
+    // }
+
     //#endregion documents
 
 
@@ -125,8 +129,4 @@ export class DocumentsService {
     }
 
     //#endregion document-types
-
-    constructor() {
-        this.editingDocument$.subscribe();
-    }
 }

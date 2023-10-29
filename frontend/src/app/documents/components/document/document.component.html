@@ -1,5 +1,9 @@
 <section class="document" *ngIf="document$ | async as doc">
+
+    <a class="back-button" color="primary" mat-raised-button [routerLink]="['/docs']">Назад</a>
+
     <div class="document__title-info">
+
         <h1>{{doc.name}}</h1>
 
         <span>{{doc.number}}</span>

@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { DocumentKeywordId } from '../models/document-keyword';
 import { DocumentTypeId } from '../models/document-type';
 import { removeExtraSign } from '@core/utils/remove-extra-sign';
+import { AddManyRequest } from '../models/add-many-request';
 
 @Injectable()
 export class DocumentsApiAdapterService extends DocumentsAdapterService {
@@ -55,5 +56,13 @@ export class DocumentsApiAdapterService extends DocumentsAdapterService {
     public override deleteDocumentById(id: DocumentId): Observable<void> {
 
         return this.http.delete<void>(`${this.url}?id=${id}`);
+    }
+
+    public override getSearchResults(name: string): Observable<IDocument[]> {
+        return this.http.get<IDocument[]>(`${this.url}/search?name=${name}`);
+    }
+
+    public override importDocuments(documents: IDocument[]): Observable<IDocument []> {
+        return this.http.post<IDocument []>(`${this.url}/many`, {documents} as AddManyRequest);
     }
 }
