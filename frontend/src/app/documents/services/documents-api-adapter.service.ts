@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { DocumentsAdapterService } from './documents-adapter.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IDocument, DocumentId, DocumentDate } from '../models/document';
 import { DocumentCreateDto } from '../models/document-create-dto';
 import * as _ from 'lodash';
