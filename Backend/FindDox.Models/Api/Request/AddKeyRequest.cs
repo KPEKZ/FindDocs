@@ -2,5 +2,5 @@
 
 public class AddKeyRequest
 {
-	public Keyword Keyword { get; set; }
+	public string Name { get; set; }
 }
