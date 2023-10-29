@@ -82,7 +82,6 @@ public class DocumentRepository : IDocumentRepository
 		var document = await Get(id);
 
 		await _linkRepository.RemoveRange(id);
-		await _documentTypeRepository.Remove(document.DocumentType.Id);
 
 		_dbContext.Documents.Remove(document);
 	}
