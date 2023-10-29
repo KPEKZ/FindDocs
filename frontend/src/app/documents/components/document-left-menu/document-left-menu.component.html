@@ -39,11 +39,21 @@
             <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
 
+        <button
+            type="button"
+            color="primary"
+            mat-raised-button
+            (click)="documentsForm.reset()"
+        >
+            Сбросить
+        </button>
+
 
         <button
             type="button"
             color="primary"
             mat-raised-button
+            (click)="submitParams()"
         >
             Применить
         </button>

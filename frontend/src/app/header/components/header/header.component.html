@@ -1,6 +1,13 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
-      </button>
-      <span>Docs Finder</span>
+    </button>
+    <span>Docs Finder</span>
 </mat-toolbar>
+
+<mat-menu class="menu" #menu="matMenu">
+    <button mat-menu-item (click)="openEditingFormDialog()">Создать новый документ</button>
+    <button mat-menu-item disabled>Импорт документов (Exel)</button>
+    <button mat-menu-item disabled>Создание типа документа</button>
+    <button mat-menu-item disabled>Создание ключевого слова</button>
+</mat-menu>

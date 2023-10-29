@@ -16,6 +16,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -35,6 +37,8 @@ const MATERIAL_MODULES = [
   MatDialogModule,
   MatMenuModule,
   MatNativeDateModule,
+  MatInputModule,
+  MatListModule,
 ];
 
 

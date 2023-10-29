@@ -1,0 +1,17 @@
+:host {
+    .container {
+        padding: 20px;
+        display: flex;
+        flex-flow: column;
+
+        .editing-form {
+            display: flex;
+            flex-flow: column;
+            gap: 20px;
+        }
+    }
+}
+
+::ng-deep .dialog-container {
+    width: 40%;
+}
