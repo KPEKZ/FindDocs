@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Self, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IFormFields } from '@core/models/form-fields';
-import { DocumentCreateDto } from '../../models/document-create-dto';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { DocumentTypeId, IDocumentType } from '../../models/document-type';
 import { DocumentKeywordId, IDocumentKeyword } from '../../models/document-keyword';
-import { DocumentLinkId, IDocumentLink } from '../../models/document-link';
+import { DocumentLinkId } from '../../models/document-link';
 import { DocumentDate, DocumentName, DocumentNumber } from '../../models/document';
-import { combineLatest, debounceTime, filter, map, of, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs';
+import { debounceTime, startWith, takeUntil, tap, withLatestFrom } from 'rxjs';
 import { shareReplayOneRefCount } from '@core/utils/share-replay-one-ref-count';
 import { DocumentsService } from '../../services/documents.service';
 import * as _ from 'lodash';
@@ -15,7 +14,6 @@ import { DocumentsRepositoryService } from '../../services/documents-repository.
 import { DocumentsKeywordRepositoryService } from '../../services/documents-keyword-repository.service';
 import { DocumentsTypeRepositoryService } from '../../services/documents-type-repository.service';
 import { DocumentCreateFormParamsDto } from '../../models/document-create-form-params-dto';
-import { isNotNill } from '@core/utils/is-not-nill';
 import { DestroyService } from '@core/services/destroy.service';
 import { IDocumentDialogData } from '../../models/dialog-data';
 
@@ -65,6 +63,7 @@ export class DocumentEditingFormDialogComponent {
     public readonly documentsEditingForm = this.fb.group<IFormFields<DocumentCreateFormParamsDto>>(this.documentEditingParams);
 
     public readonly formValueChanges$ = this.documentsEditingForm.valueChanges.pipe(
+        startWith(this.documentsEditingForm.value),
         debounceTime(100),
         shareReplayOneRefCount(),
     );
@@ -75,12 +74,12 @@ export class DocumentEditingFormDialogComponent {
             withLatestFrom(this.documentTypes$),
             tap(([[[_, formValues], keywords], types]) => {
 
-                if (this.data.isEditing) {
-                    const values = (formValues as DocumentCreateFormParamsDto);
+                const values = (formValues as DocumentCreateFormParamsDto);
 
-                    const kids = values.keywordIds?.map(id => keywords.find(k => k.id ===id)) as IDocumentKeyword [];
+                const kids = values.keywordIds?.map(id => keywords.find(k => k.id ===id)) as IDocumentKeyword [];
 
-                    const tids = types.find(t => t.id === formValues.documentTypeId) as IDocumentType;
+                const tids = types.find(t => t.id === formValues.documentTypeId) as IDocumentType;
+
 
                     if (kids && tids && !this.data.isEditing) {
 
@@ -94,18 +93,16 @@ export class DocumentEditingFormDialogComponent {
                         });
                     }
 
-                    if (kids && tids && this.data.isEditing && this.data.editingDocument) {
+                if (kids && tids && this.data.isEditing && this.data.editingDocument) {
 
-                        this.documentsService.updateDocumentById(this.data.editingDocument.id, {
-                            name: values.name,
-                            number: values.number,
-                            documentType: tids,
-                            keywords: kids,
-                            releaseDate: new Date(values.releaseDate).toISOString() as DocumentDate,
-                            takeEffectDate: new Date(values.takeEffectDate).toISOString() as DocumentDate,
-                        });
-                    }
-
+                    this.documentsService.updateDocumentById(this.data.editingDocument.id, {
+                        name: values.name,
+                        number: values.number,
+                        documentType: tids,
+                        keywords: kids,
+                        releaseDate: new Date(values.releaseDate).toISOString() as DocumentDate,
+                        takeEffectDate: new Date(values.takeEffectDate).toISOString() as DocumentDate,
+                    });
                 }
 
             }),
