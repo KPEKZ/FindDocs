@@ -54,10 +54,10 @@ public class DocumentService : IDocumentService
 		return addedDoc.ToApi();
 	}
 
-	public async Task<IReadOnlyList<Models.Api.Document>> AddMany(IReadOnlyList<Models.Api.Document> documents)
+	public async Task<IReadOnlyList<Models.Api.Document>> AddMany(AddManyRequest request)
 	{
 		var addedDocuments = new List<Models.Db.Document>();
-		foreach (var doc in documents)
+		foreach (var doc in request.Documents)
 		{
 			var addedDoc = await AddDocument(doc);
 			addedDocuments.Add(addedDoc);
@@ -75,7 +75,16 @@ public class DocumentService : IDocumentService
 		if (document.DocumentType is not null)
 		{
 			var docType = await _documentTypeRepository.Get(document.DocumentType.Id);
-			doc.DocumentType = docType;
+
+			if (docType is null)
+			{
+				var docAdd = await _documentTypeService.Add(document.DocumentType);
+				doc.DocumentType = docAdd.ToDbo();
+			}
+			else
+			{
+				doc.DocumentType = docType;
+			}
 		}
 
 		if (document.Links is not null && document.Links.Any())
@@ -86,7 +95,17 @@ public class DocumentService : IDocumentService
 		if (document.Keywords is not null && document.Keywords.Any())
 		{
 			var keywords = await _keywordRepository.GetMany(document.Keywords.Select(x => x.Id).ToList());
-			var addedKeywords = await _documentRepository.AddKeywords(keywords.Select(x => x.Id).ToList(), doc.Id);
+
+			if (keywords is null)
+			{
+				var addKeywords = document.Keywords.Select(x => _keywordService.Add(new AddKeyRequest { Name = x.Name }));
+				var addedKeywords = await Task.WhenAll(addKeywords);
+				await _documentRepository.AddKeywords(addedKeywords.Select(x => x.Id).ToList(), doc.Id);
+			}
+			else
+			{
+				var addedKeywords = await _documentRepository.AddKeywords(keywords.Select(x => x.Id).ToList(), doc.Id);
+			}
 		}
 
 		var addedDoc = await _documentRepository.Add(doc);

@@ -50,9 +50,9 @@ public class DocumentController : ControllerBase
 
 	[HttpPost("many")]
 	[ProducesResponseType(typeof(IReadOnlyList<Document>), StatusCodes.Status200OK)]
-	public async Task<IActionResult> AddMany([FromBody] IReadOnlyList<Document> documents)
+	public async Task<IActionResult> AddMany([FromBody]AddManyRequest request)
 	{
-		var result = await _documentService.AddMany(documents);
+		var result = await _documentService.AddMany(request);
 		return Ok(result);
 	}
 

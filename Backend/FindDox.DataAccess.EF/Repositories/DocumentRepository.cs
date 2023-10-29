@@ -110,8 +110,6 @@ public class DocumentRepository : IDocumentRepository
 
 	public async Task<IReadOnlyList<Document>> Search(string name)
 	{
-		IQueryable<Document> documents = _dbContext.Documents;
-
 		return await _dbContext.Documents
 			.Include(x => x.Links)
 			.Include(x => x.DocumentType)
