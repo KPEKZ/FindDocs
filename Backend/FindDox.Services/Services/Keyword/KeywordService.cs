@@ -34,7 +34,7 @@ public class KeywordService : IKeywordService
 
 	public async Task<Models.Api.Keyword> Add(AddKeyRequest request)
 	{
-		var key = request.Keyword.ToDbo(request.DocumentId);
+		var key = request.Keyword.ToDbo();
 
 		var addedKey = await _keywordRepository.Add(key);
 		await _keywordRepository.Save();

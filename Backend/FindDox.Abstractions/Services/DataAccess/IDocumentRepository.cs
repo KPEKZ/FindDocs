@@ -9,10 +9,12 @@ public interface IDocumentRepository
 	Task<IReadOnlyList<Document>> GetAllByFilters(GetAllRequest request);
 
 	Task<Document> Add(Document document);
+	Task<IReadOnlyList<KeywordDocument>> AddKeywords(IReadOnlyList<Guid> ids, Guid docId);
 
 	Task Update(Document document);
 
 	Task Remove(Guid id);
+	Task RemoveKeywords(IReadOnlyList<Guid> ids, Guid docId);
 
 	Task<int> Save(CancellationToken ctx = default);
 }

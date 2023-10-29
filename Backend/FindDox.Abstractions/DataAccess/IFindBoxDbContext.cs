@@ -20,4 +20,5 @@ public interface IFindBoxDbContext
 	DbSet<User> Users { get; set; }
 	DbSet<Role> Roles { get; set; }
 	DbSet<UserRole> UsersToRoles { get; set; }
+	DbSet<KeywordDocument> KeywordDocument { get; set; }
 }

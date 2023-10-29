@@ -2,11 +2,10 @@
 
 public static class KeywordMapper
 {
-	public static Db.Keyword ToDbo(this Api.Keyword keyword, Guid documentId) =>
+	public static Db.Keyword ToDbo(this Api.Keyword keyword) =>
 	new()
 	{
-		Name = keyword.Name,
-		DocumentId = documentId,
+		Name = keyword.Name
 	};
 
 	public static Api.Keyword ToApi(this Db.Keyword keyword) =>

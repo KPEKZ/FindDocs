@@ -9,10 +9,8 @@ public class Keyword
 	[DatabaseGenerated(DatabaseGeneratedOption.None)]
 	public Guid Id { get; init; } = Guid.NewGuid();
 
-	public Guid DocumentId { get; set; }
-
-	[ForeignKey(nameof(DocumentId))]
-	public Document Document { get; set; }
+	[InverseProperty(nameof(KeywordDocument.Keyword))]
+	public ICollection<KeywordDocument> KeywordDocuments { get; set; }
 
 	public string Name { get; set; }
 }
