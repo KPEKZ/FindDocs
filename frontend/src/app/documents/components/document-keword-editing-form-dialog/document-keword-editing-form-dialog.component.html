@@ -1,0 +1,30 @@
+<div class="container">
+
+    <span *ngIf="(documentKeywords$ | async)?.length === 0">Нет ключевых слов</span>
+
+    <mat-list class="list">
+        <mat-list-item *ngFor="let keyword of documentKeywords$ | async as keywords; let idx = index">
+            <mat-icon matListItemIcon>label</mat-icon>
+            <div class="list-content">
+                <span>{{idx + 1}}</span>. &nbsp; <span class="name">{{keyword.name}}</span>
+            </div>
+
+            <div class="list-actions">
+                <button type="button" mat-icon-button (click)="deleteDocumentKeyword(keyword.id)">
+                    <mat-icon color="primary">delete</mat-icon>
+                </button>
+            </div>
+        </mat-list-item>
+    </mat-list>
+
+    <form class="editing-form"  [formGroup]="documentsKeywordEditingForm"  #form>
+
+        <mat-form-field class="form-field">
+            <mat-label>Наименование</mat-label>
+            <input formControlName="name" matInput #name />
+        </mat-form-field>
+    </form>
+    <button mat-raised-button color="primary" (click)="createDocumentKeyword(name.value)">
+        Создать
+    </button>
+</div>

@@ -5,6 +5,11 @@
 
     <h1 class="list-header">Список документов</h1>
 
+    <mat-form-field class="list-searcher">
+        <mat-label>Наименование, Номер</mat-label>
+        <input type="text" matInput />
+    </mat-form-field>
+
     <mat-list class="list">
         <a
             *ngFor="let doc of docs; let idx = index"
