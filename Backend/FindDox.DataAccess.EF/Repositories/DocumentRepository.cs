@@ -51,11 +51,11 @@ public class DocumentRepository : IDocumentRepository
 		}
 		if (request.From.HasValue)
 		{
-			documents = documents.Where(d => d.ReleaseDate.DateTime > request.From);
+			documents = documents.Where(d => d.ReleaseDate > request.From.Value);
 		}
 		if (request.To.HasValue)
 		{
-			documents = documents.Where(d => d.ReleaseDate.DateTime < request.To);
+			documents = documents.Where(d => d.ReleaseDate < request.To.Value);
 		}
 
 		return await documents
